@@ -1,0 +1,27 @@
+{
+  "name": "weadu-feed-check",
+  "title": "WeAdU Feed Check",
+  "description": "Check a pasted Google Shopping feed for missing title, GTIN, price, image, and link. Local only.",
+  "icon": "assets/icon.png",
+  "author": "weadu",
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "check-feed",
+      "title": "Check Shopping Feed",
+      "description": "Audit a pasted Google Shopping feed",
+      "mode": "view"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.94.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "typescript": "^5.8.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  }
+}
