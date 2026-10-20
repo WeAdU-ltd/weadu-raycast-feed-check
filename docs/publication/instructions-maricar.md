@@ -28,7 +28,7 @@ Raycast's own guide says to share an extension with the community once it is pub
 ### After posting
 
 - Answer questions **only in the thread of our own message**.
-- Bug reports: thank the person, ask them to report it with the "Report Bug" action of the extension in Raycast or on GitHub (LINK), and tell the WeAdU team.
+- Bug reports: thank the person, ask them to open an issue on GitHub (LINK), and tell the WeAdU team.
 - Feature requests: thank the person, say we have noted it, and tell the WeAdU team. Do not promise a date.
 - If a moderator asks for a change or removes the message, accept it and tell the WeAdU team. Do not repost.
 - Send the WeAdU team the link to your message.
@@ -59,7 +59,7 @@ La communauté échange en anglais : publiez la version anglaise. Le guide de Ra
 ### Après la publication
 
 - Répondez aux questions **uniquement dans le fil de notre propre message**.
-- Signalement de bug : remerciez la personne, invitez-la à le signaler avec l'action « Report Bug » de l'extension dans Raycast ou sur GitHub (LINK), et prévenez l'équipe WeAdU.
+- Signalement de bug : remerciez la personne, invitez-la à ouvrir une issue sur GitHub (LINK) et prévenez l'équipe WeAdU.
 - Demande de fonctionnalité : remerciez la personne, dites que c'est noté et prévenez l'équipe WeAdU. Ne promettez pas de date.
 - Si un modérateur demande une modification ou retire le message, acceptez-le et prévenez l'équipe WeAdU. Ne republiez pas.
 - Envoyez à l'équipe WeAdU le lien de votre message.
