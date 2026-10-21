@@ -17,7 +17,7 @@ function FeedResult({ report, onReset }: { report: AuditReport; onReset: () => v
       searchBarPlaceholder="Filter products"
       actions={
         <ActionPanel>
-          <Action title="Check another feed" onAction={onReset} />
+          <Action title="Check Another Feed" onAction={onReset} />
         </ActionPanel>
       }
     >
@@ -25,9 +25,7 @@ function FeedResult({ report, onReset }: { report: AuditReport; onReset: () => v
       {report.items.map((item, index) => {
         const errors = item.findings.filter((row) => row.severity === "error").length;
         const warnings = item.findings.length - errors;
-        const subtitle = item.findings.length
-          ? item.findings.map((row) => row.code).join(", ")
-          : "No finding";
+        const subtitle = item.findings.length ? item.findings.map((row) => row.code).join(", ") : "No finding";
         return (
           <List.Item
             key={item.id + ":" + String(index)}
@@ -37,10 +35,12 @@ function FeedResult({ report, onReset }: { report: AuditReport; onReset: () => v
             actions={
               <ActionPanel>
                 <Action.CopyToClipboard
-                  title="Copy findings"
-                  content={itemTitle(item) + "\n" + (item.findings.map((row) => row.message).join("\n") || "No finding")}
+                  title="Copy Findings"
+                  content={
+                    itemTitle(item) + "\n" + (item.findings.map((row) => row.message).join("\n") || "No finding")
+                  }
                 />
-                <Action title="Check another feed" onAction={onReset} />
+                <Action title="Check Another Feed" onAction={onReset} />
               </ActionPanel>
             }
           />
@@ -63,7 +63,7 @@ export default function Command() {
       actions={
         <ActionPanel>
           <Action.SubmitForm
-            title="Check feed"
+            title="Check Feed"
             onSubmit={(values: FormValues) => {
               setReport(auditFeedText(values.feed));
             }}

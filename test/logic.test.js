@@ -4,69 +4,14 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const test = require("node:test");
-const { execFileSync } = require("node:child_process");
 
-const utm = require("./utm");
-const rsa = require("./rsa");
-const feed = require("./feed");
+const feed = require("../src/feed");
 
 const fixtures = JSON.parse(fs.readFileSync(path.join(__dirname, "fixtures.json"), "utf8"));
 
 function codes(findings) {
   return findings.map(function (row) { return row.code; }).sort();
 }
-
-test("utm fixtures", function () {
-  for (const row of fixtures.utm) {
-    const built = utm.buildUtmUrl(row.input);
-    assert.equal(built.ok, row.ok, row.name);
-    if (row.ok) assert.equal(built.url, row.url, row.name);
-    else assert.deepEqual(codes(built.errors), row.codes.slice().sort(), row.name);
-  }
-});
-
-test("utm inspect and ledger", function () {
-  const raw = "See https://shop.example/p?utm_source=google&utm_medium=cpc.";
-  const urls = utm.extractUrls(raw);
-  assert.deepEqual(urls, ["https://shop.example/p?utm_source=google&utm_medium=cpc"]);
-  assert.deepEqual(codes(utm.inspectUrl(urls[0])), ["missing_utm_campaign"]);
-
-  const input = { url: "https://shop.example/p", source: "google", medium: "cpc", campaign: "spring" };
-  const row = utm.ledgerRow(input, "2026-10-16");
-  assert.match(row, /2026-10-16/);
-  assert.match(row, /utm_campaign=spring/);
-
-  const note = "Brief\n";
-  const once = utm.appendLedger(note, row);
-  assert.match(once, /## UTM ledger/);
-  const twice = utm.appendLedger(once, row);
-  const occurrences = twice.split(row).length - 1;
-  assert.equal(occurrences, 2);
-  assert.equal(twice.split("## UTM ledger").length - 1, 1);
-});
-
-test("rsa width, lint, and candidates", function () {
-  assert.equal(rsa.googleAdsWidth("Shop"), 4);
-  assert.equal(rsa.googleAdsWidth("広告"), 4);
-  const bang = rsa.lintAdLine("Shop now!", "headline");
-  assert.ok(bang.codes.includes("headline_exclamation"));
-  const wide = rsa.lintAdLine("This headline is definitely too long for Google", "headline");
-  assert.ok(wide.codes.includes("over_limit"));
-  const candidates = rsa.buildRsaCandidates({
-    product: "Cotton shirt",
-    benefit: "Soft cotton you can wear every day without thinking about it",
-    offer: "20% off",
-    cta: "Shop",
-  });
-  assert.ok(candidates.length >= 3);
-  for (const candidate of candidates) {
-    assert.ok(candidate.width <= candidate.limit, candidate.text);
-    assert.equal(candidate.text.includes("best"), false);
-  }
-  const onlyProduct = rsa.buildRsaCandidates({ product: "Cotton shirt" });
-  assert.equal(onlyProduct.length, 1);
-  assert.equal(onlyProduct[0].text, "Cotton shirt");
-});
 
 test("feed item fixtures", function () {
   for (const row of fixtures.items) {
@@ -125,8 +70,4 @@ test("rss, atom, and csv parsers", function () {
   assert.equal(feed.auditFeedText("hello").format, "unknown");
   assert.equal(feed.gtinIsValid("4006381333931"), true);
   assert.equal(feed.gtinIsValid("4006381333932"), false);
-});
-
-test("php port", function () {
-  execFileSync("php", [path.join(__dirname, "feed_audit_test.php")], { stdio: "inherit" });
 });

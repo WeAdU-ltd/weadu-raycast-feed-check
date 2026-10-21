@@ -36,7 +36,8 @@
 
   const AVAILABILITY = { in_stock: true, out_of_stock: true, preorder: true, backorder: true };
   const CONDITIONS = { new: true, refurbished: true, used: true };
-  const PROMO = /\b(free shipping|livraison gratuite|envio gratis|envío gratis|sale|soldes?|%\s?off|discount|réduction|promo)\b/i;
+  const PROMO =
+    /\b(free shipping|livraison gratuite|envio gratis|envío gratis|sale|soldes?|%\s?off|discount|réduction|promo)\b/i;
   const DEFAULT_MAX = 500;
 
   function finding(code, severity, field) {
@@ -91,7 +92,9 @@
   }
 
   function identifierWaived(value) {
-    const flag = String(value || "").trim().toLowerCase();
+    const flag = String(value || "")
+      .trim()
+      .toLowerCase();
     return flag === "no" || flag === "false" || flag === "0";
   }
 
@@ -134,7 +137,9 @@
     const brand = String(source.brand == null ? "" : source.brand).trim();
     const gtin = gtinDigits(source.gtin);
     const mpn = String(source.mpn == null ? "" : source.mpn).trim();
-    const condition = String(source.condition == null ? "" : source.condition).trim().toLowerCase();
+    const condition = String(source.condition == null ? "" : source.condition)
+      .trim()
+      .toLowerCase();
     const findings = [];
 
     if (!id) findings.push(finding("missing_id", "error", "id"));
@@ -205,9 +210,15 @@
     if (!list.length) errors.push(finding("empty_feed", "error", "feed"));
     if (truncated) errors.push(finding("truncated", "warning", "feed"));
     return {
-      ok: errors.every(function (item) { return item.severity !== "error"; }) && reports.every(function (item) {
-        return item.findings.every(function (row) { return row.severity !== "error"; });
-      }),
+      ok:
+        errors.every(function (item) {
+          return item.severity !== "error";
+        }) &&
+        reports.every(function (item) {
+          return item.findings.every(function (row) {
+            return row.severity !== "error";
+          });
+        }),
       format: "items",
       truncated: truncated,
       errors: errors,
@@ -219,8 +230,12 @@
   function decodeXml(value) {
     return String(value || "")
       .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
-      .replace(/&#(\d+);/g, function (_, num) { return String.fromCodePoint(Number(num)); })
-      .replace(/&#x([0-9a-fA-F]+);/g, function (_, num) { return String.fromCodePoint(parseInt(num, 16)); })
+      .replace(/&#(\d+);/g, function (_, num) {
+        return String.fromCodePoint(Number(num));
+      })
+      .replace(/&#x([0-9a-fA-F]+);/g, function (_, num) {
+        return String.fromCodePoint(parseInt(num, 16));
+      })
       .replace(/&lt;/g, "<")
       .replace(/&gt;/g, ">")
       .replace(/&quot;/g, '"')
@@ -285,13 +300,23 @@
         if (ch === "\r" && source[i + 1] === "\n") i++;
         row.push(cell);
         cell = "";
-        if (row.some(function (value) { return value.trim() !== ""; })) rows.push(row);
+        if (
+          row.some(function (value) {
+            return value.trim() !== "";
+          })
+        )
+          rows.push(row);
         row = [];
       } else cell += ch;
     }
     if (cell.length || row.length) {
       row.push(cell);
-      if (row.some(function (value) { return value.trim() !== ""; })) rows.push(row);
+      if (
+        row.some(function (value) {
+          return value.trim() !== "";
+        })
+      )
+        rows.push(row);
     }
     return rows;
   }
