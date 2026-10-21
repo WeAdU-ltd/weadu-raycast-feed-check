@@ -158,7 +158,7 @@ test("command shows a form, then a result list after submit", function () {
   const copy = findAll(items[1].actions, "Action.CopyToClipboard")[0];
   assert.match(copy.props.content, /^Hat\ntitle is under 15 characters\./);
 
-  const reset = findAll(items[0].actions, "Action").find(function (a) { return a.props.title === "Check another feed"; });
+  const reset = findAll(items[0].actions, "Action").find(function (a) { return a.props.title === "Check Another Feed"; });
   reset.props.onAction();
   assert.equal(findAll(app.tree, "Form.TextArea").length, 1, "back to the form");
 });
