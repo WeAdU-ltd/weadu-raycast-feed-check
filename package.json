@@ -5,6 +5,10 @@
   "description": "Check a pasted Google Shopping feed for missing title, GTIN, price, image, and link. Local only.",
   "icon": "icon.png",
   "author": "TODO_RAYCAST_USERNAME",
+  "categories": [
+    "Productivity",
+    "Data"
+  ],
   "license": "MIT",
   "commands": [
     {

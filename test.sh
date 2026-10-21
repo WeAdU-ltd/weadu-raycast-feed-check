@@ -2,6 +2,7 @@
 # Local checks. `ray lint` also needs a real Raycast author in package.json (TODO_RAYCAST_USERNAME until the account exists).
 set -eu
 cd "$(dirname "$0")"
+[ -d node_modules ] || npm ci --no-audit --no-fund
 node --test test/
 npx --no-install tsc --noEmit -p tsconfig.json
 npx --no-install eslint src
