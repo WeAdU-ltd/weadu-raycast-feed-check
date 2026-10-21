@@ -3,7 +3,6 @@
 set -eu
 cd "$(dirname "$0")"
 node --test test/
-cmp src/feed.js test/fixtures.json >/dev/null 2>&1 || true
 npx --no-install tsc --noEmit -p tsconfig.json
 npx --no-install eslint src
 npx --no-install prettier --check src
