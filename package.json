@@ -1,0 +1,37 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "weadu-feed-check",
+  "title": "WeAdU Feed Check",
+  "description": "Check a pasted Google Shopping feed for missing title, GTIN, price, image, and link. Local only.",
+  "icon": "icon.png",
+  "author": "TODO_RAYCAST_USERNAME",
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "check-feed",
+      "title": "Check Shopping Feed",
+      "description": "Audit a pasted Google Shopping feed",
+      "mode": "view"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.94.0"
+  },
+  "devDependencies": {
+    "@raycast/eslint-config": "^2.2.0",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "eslint": "^9.39.5",
+    "prettier": "^3.9.10",
+    "typescript": "^5.8.0"
+  },
+  "scripts": {
+    "build": "ray build",
+    "dev": "ray develop",
+    "fix-lint": "ray lint --fix",
+    "lint": "ray lint",
+    "prepublishOnly": "echo \"\\n\\nIt seems like you are trying to publish the Raycast extension to npm.\\n\\nIf you did intend to publish it to npm, remove the \\`prepublishOnly\\` script and rerun \\`npm publish\\` again.\\nIf you wanted to publish it to the Raycast Store instead, use \\`npm run publish\\` instead.\\n\\n\" && exit 1",
+    "publish": "npx @raycast/api@latest publish",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  }
+}
